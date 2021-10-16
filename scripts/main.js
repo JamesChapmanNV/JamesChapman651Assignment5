@@ -1,164 +1,101 @@
 /* Practice Assignment 6:
+
 Complete this javascript file according to the individual instructions
 given in the comments. 
+
 *** DO NOT CHANGE any of the code that you are not instructed to. */
 
-// 1) Create an object named webDev that cannot be reassigned and
-// contains the 3 key-value pairs:
-// frame: "HTML", style: "CSS", logic: "JavaScript"
+// 1) Create an array named myPizzaOrder that cannot be reassigned and
+// contains the 3 elements: "Pepperoni", 12.99, false
 
-const webDev = {
-    frame: "HTML", 
-    style: "CSS", 
-    logic: "JavaScript"
-};
+let myPizzaOrder = ["Pepperoni", 12.99, false];
 
-// 2) Create an object named pizza with a property named crust.
-// Set the crust value to "thin". Add a method named setCrust
-// to the object that accepts a parameter named crustType.
-// The method should change the crust value of the object to
-// the value of the parameter.
-// Hint: keyword to use is "this".
+// 2) Create a function named getPizzaType that will accept an array
+// as a parameter and returns the 1st element from the array.
 
-const pizza = {
-    crust: "thin", 
-    setCrust: function(crustType){
-        this.crust = crustType;
-    }
-};
+let  getPizzaType = array => array[0];
 
-// 3) Create a function named doesItContain that accepts two
-// parameters: "key" and "obj". The function should return
-// boolean data to indicate if the key exists in the object.
+// 3) Create a function named addTax that will accept an array
+// like your myPizzaOrder array as a parameter. The function will
+// insert an element into the array between the 2nd and 3rd
+// element in the array that is equal to the 2nd element multiplied
+// by 0.0925 and rounded to the nearest penny (ie 0.95, 0.79, 0.42, etc).
+// The function should return the array.
+// ===========
+// Hint: find the method that will allow you to set the decimals.
 
-function doesItContain (key, obj) {
-    const arr = Object.keys(obj);
-    for (let i = 0; i < arr.length ; i++){
-        if(arr[i] == key) return true;
-    }
+let addTax = array => array.splice(2, 0, Math.round( array[1]*9.25) / 100);
 
-    // alternative impllementation
-    // let i in obj - iterates over values, not keys
-    // for(let i in obj) {if(i === key) return true;}
+// 4) Create a function named completeOrder that will accept an array
+// as a parameter. The function will change the value of the 4th
+// element in the array to true and return the array.
 
-    return false;
+let completeOrder = array => array.splice(3, 1, true);
+
+
+// 5) Create a function named allTheNumbers that accepts a number as
+// a parameter. The function will create an array that contains all of
+// the numbers from 1 to whatever number the parameter is. The array
+// should not include the parameter number. The function returns
+// the array.
+
+function allTheNumbers (number) {
+    let arr = new Array(number-1);
+    for (let i = 0; i < number-1 ; i++){ arr[i] = i + 1; }
+    return arr;
 }
 
 
+// 6) Create a function named getEvens that accepts 2 parameters:
+// startNum and endNum. The function should return an array that
+// includes the even numbers from startNum to endNum. If the startNum
+// or endNum are even, they should be included in the returned array.
 
-// 4) Create a function named introduceTheActors that accepts
-// the array of objects named actors (see below) as a parameter.
-// Name the parameter "actorArray". The function should loop
-// through the actors array and create the following statement
-// for each actor:
-// "Hi, I'm {actorName} and I was in {movieName}."
-////////
-// Example: "Hi, I'm Keanu and I was in The Matrix."
-////////
-// Store each statement in an array that is returned when
-// the function is complete. The returned array should have
-// all of the created statements inside.
-const actors = [
-    { name: "Keanu", movie: "The Matrix" },
-    { name: "Amy", movie: "Arrival" },
-    { name: "Leonardo", movie: "The Wolf of Wall Street" },
-    { name: "Sigourney", movie: "Alien" },
-    { name: "Jeff", movie: "The Big Lebowski" },
-  ];
-
-  function introduceTheActors (actorArray){
-      let arr = [];
-      for (let i of actorArray) {
-          let statement = "Hi, I'm " + i.name + 
-          " and I was in " + i.movie + ".";
-
-          arr.push(statement);
-      }
-      return arr;
-  }
-  
-  ///////// Do not change the above array of objects /////////
-  
-  // 5) Create an object named techCompanies that has the following
-  // key-value pairs:
-  // Microsoft: "Bill Gates", Amazon: "Jeff Bezos", Tesla: "Elon Musk",
-  // Facebook: "Mark Zuckerberg", Apple: "Steve Jobs"
-  // Add a method to the techCompanies object named founderLookup
-  // that accepts companyName as a parameter and returns
-  // the name of the founder.
-  
-  const  techCompanies = {
-        Microsoft: "Bill Gates", 
-        Amazon: "Jeff Bezos", 
-        Tesla: "Elon Musk",
-        Facebook: "Mark Zuckerberg", 
-        Apple: "Steve Jobs",
-        founderLookup : function(companyName) {
-            return this[companyName];
-        }
-  };
+function getEvens (startNum, endNum) {
+    let arr = [];
+    if (startNum % 2 != 0) 
+        startNum++;
+    for (let i = startNum; i <= endNum ; i += 2){
+        arr.push(i);
+    }
+    
+    return arr;
+}
 
 
-  // 6) Utlizing the same techCompanies object from #5,
-  // Create a function named storeFounders that accepts
-  // an object and loops through the values. Store the
-  // name of each founder in a new array that is returned
-  // by the function when the loop is complete.
+// 7) Create a function named getLastElement that accepts an array
+// as a parameter and returns the last element of the array. The
+// array can have any number of elements. The function should always
+// return the last element.
 
-  function storeFounders (obj) {
-      let arrayOfValues = Object.values(obj);
-      let eachFounder = [];
-      for (let i of arrayOfValues){
-          if (typeof i === "string"){
-            eachFounder.push(i);
-          }
-      }
-      return eachFounder;
-  }
-
-  // 7) Create a function named goToSecondClass that accepts
-  // a destructured object as a parameter. The parameter
-  // extracts the "secondHour" property of the object.
-  // The function should return this statement:
-  // "Time to go to {property_value} class!"
-  //////////
-  // Example: "Time to go to Programming class!"
-  /////////
-  // Test your function with this object:e
-  const myClasses = {
-    firstHour: "Ethics",
-    secondHour: "Programming",
-    thirdHour: "Biology",
-  };
-  ////////// Don't change the above object
-
-  function goToSecondClass ({ secondHour }) {
-    return `Time to go to ${secondHour} class!`;
-  }
+let getLastElement = array => array.slice(-1);
 
 
-  // 8a) Create a generic object named pie.
-  // Give the pie object a property named "slices"
-  // that has a value of 8. Give the pie object
-  // a method named "taste". Have the taste method
-  // return "Wow!".
-  /////
 
-  let pie = Object.create(null);
-  pie.slices = 8;
-  pie.taste = function() {return "Wow!";};
+// 8) Create a function named combineArrays that accepts two arrays
+// as parameters and combines them into one array. The function
+// should return the new combined array.
 
-  // 8b) Create a new object named "blueBerryPie"
-  // that uses the pie object as a constructor
-  // to inherit its property and method. Use
-  // dot notation to add a flavor property to
-  // the "blueBerryPie" object that has a value of
-  // "blueberry". Also, update the taste method of
-  // this new object to return "Delicious!"
-  ////////////////
-  // Hint: Inheritance is in this week's video.
+let combineArrays = (array1, array2) => [...array1, ...array2];
 
-  let blueBerryPie = Object.create(pie);
-  blueBerryPie.flavor = "blueberry";
-  blueBerryPie.taste = function() {return "Delicious!";};
+
+// 9) Create a function named isPalindrome that accepts a string as
+// a parameter. The function will return true if the string is a
+// palindrome and false if the string is not. To check for a
+// palindrome, remove all spaces and set to lowercase. The string
+// will be identical both forward and reverse if it is a palindrome.
+// For example: Taco Cat is a palindrome. tacocat is the same both
+// forward and reverse.
+// ==========
+// Hints: There are several possible solutions for this. I use a
+// combination of string and array methods. You can turn the string
+// into an array, use arrays methods, and turn the array back into
+// a string. This is also a challenge on freeCodeCamp. Check the
+// help forums there if you get stuck!
+
+function isPalindrome (str) {
+    let normalized = str.toLowerCase().replace(/[\W_]/g, '');
+    let reversed = normalized.split('').reverse().join('');
+    return reversed === normalized;
+}
 
